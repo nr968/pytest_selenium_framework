@@ -1,2 +1,21 @@
-./venv/**/*
-.idea/**/*
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.venv/
+
+# Test reports
+reports/
+
+# Screenshots
+screenshots/
+
+# IDE
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
