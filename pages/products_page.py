@@ -28,20 +28,21 @@ class ProductPage:
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 5)
 
-    def verify_page_loaded(self):
+    def get_brand_logo_text(self):
         self.wait.until(expected_conditions.visibility_of_element_located(
             (By.XPATH, locators["text"]["brand_logo"])
         ))
+        return self.driver.find_element(By.XPATH, locators["text"]["brand_logo"]).text
 
     def search_product(self, product_name: str):
         self.driver.find_element(By.XPATH, locators["input"]["search_box"]).send_keys(product_name)
         self.driver.find_element(By.XPATH, locators["button"]["search_button"]).click()
 
-    def verify_product_in_search_result(self, product_name: str):
+    def get_product_name_from_search_result(self, product_name: str):
         self.wait.until(expected_conditions.visibility_of_element_located(
             (By.XPATH, locators["text"]["product_card_text"].format(product_name=product_name))
         ))
-        assert product_name in self.driver.find_element(By.XPATH, locators["text"]["product_card_text"].format(
+        return self.driver.find_element(By.XPATH, locators["text"]["product_card_text"].format(
             product_name=product_name)).text
 
     def add_product_to_cart(self, product_name):
@@ -50,6 +51,6 @@ class ProductPage:
             (By.XPATH, locators["text"]["product_added_text"].format(product_name=product_name))
         ))
 
-    def verify_product_added_to_cart(self, product_name):
+    def is_product_added_to_cart(self, product_name):
         self.driver.find_element(By.XPATH, locators["element"]["cart_icon"]).click()
-        assert product_name in self.driver.find_element(By.XPATH, locators["text"]["cart_item_product_name"]).text
+        return product_name in self.driver.find_element(By.XPATH, locators["text"]["cart_item_product_name"]).text

@@ -12,5 +12,7 @@ def driver():
     driver = webdriver.Chrome()
     driver.maximize_window()
     driver.get(config["base_url"])
+
     yield driver
+
     driver.quit()

@@ -8,8 +8,8 @@ def test_search_product_and_verify_result(driver):
     products_page = ProductPage(driver)
     product_name = "Brocolli"
 
-    products_page.verify_page_loaded()
+    assert "GREENKART" in products_page.get_brand_logo_text()
     products_page.search_product(product_name=product_name)
-    products_page.verify_product_in_search_result(product_name=product_name)
+    assert product_name in products_page.get_product_name_from_search_result(product_name=product_name)
     products_page.add_product_to_cart(product_name=product_name)
-    products_page.verify_product_added_to_cart(product_name=product_name)
+    assert products_page.is_product_added_to_cart(product_name=product_name)
