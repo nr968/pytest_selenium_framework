@@ -1,11 +1,11 @@
-from pages.products_page import ProductPage
+from pages.products_page import ProductsPage
 
 
 def test_product_page_loaded(driver):
     assert driver.title == "GreenKart - veg and fruits kart"
 
 def test_search_product_and_verify_result(driver):
-    products_page = ProductPage(driver)
+    products_page = ProductsPage(driver)
     product_name = "Brocolli"
 
     assert "GREENKART" in products_page.get_brand_logo_text()
