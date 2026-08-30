@@ -22,9 +22,3 @@ class ProductsPage(Common):
     def add_product_to_cart(self, product_name):
         self.click_element(By.XPATH, locators["button"]["add_to_cart"].format(product_name=product_name))
         self.wait_until_element_is_visible(By.XPATH, locators["text"]["product_added_text"].format(product_name=product_name))
-
-    def click_cart(self):
-        self.click_element(By.XPATH, locators["element"]["cart_icon"])
-
-    def is_product_added_to_cart(self, product_name):
-        return product_name in self.find_element(By.XPATH, locators["text"]["cart_item_product_name"]).text
