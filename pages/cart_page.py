@@ -26,13 +26,12 @@ class CartPage(Common):
 
         products = []
         checkout_product_table_rows = self.find_elements(By.XPATH, LOCATORS.element.checkout_table_rows)
-        for row in checkout_product_table_rows:
+        for _ in checkout_product_table_rows:
             product_details = self.find_elements(By.XPATH, f"{LOCATORS.element.checkout_table_rows}/td")[1:]
             if len(headers) == len(product_details):
                 map_dict = {}
                 for header, product_detail in zip(headers, product_details):
                     map_dict[header] = product_detail.text
-                print(map_dict)
                 products.append(dict2class(map_dict))
             else:
                 raise ValueError(f'Header and row length does not match')

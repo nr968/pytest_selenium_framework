@@ -1,10 +1,16 @@
+import pytest
+from selenium.webdriver.chrome.webdriver import WebDriver
+
 from pages.products_page import ProductsPage
 from pages.cart_page import CartPage
 
-def test_verify_product_is_added_to_cart(driver):
+@pytest.mark.parametrize(
+    "product_name",
+    ["Brocolli", "Carrot", "Tomato"]
+)
+def test_verify_product_is_added_to_cart(driver: WebDriver, product_name: str):
     products_page = ProductsPage(driver)
     cart = CartPage(driver)
-    product_name = "Brocolli"
 
     assert "GREENKART" in products_page.get_brand_logo_text()
     products_page.search_product(product_name=product_name)
@@ -17,4 +23,4 @@ def test_verify_product_is_added_to_cart(driver):
     cart.click_checkout()
     products = cart.get_products_details()
     for product in products:
-        assert "Brocolli" in product.product_name
+        assert product_name in product.product_name
