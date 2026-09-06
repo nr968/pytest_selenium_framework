@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Alex",
+    "position": "Engineer",
+    "city": "Chennai",
+    "amount": 28
+  },
+  {
+    "name": "Ben",
+    "position": "Mechanic",
+    "city": "Bengaluru",
+    "amount": 23
+  },
+  {
+    "name": "Raymond",
+    "position": "Businessman",
+    "city": "Mumbai",
+    "amount": 37
+  }
+]

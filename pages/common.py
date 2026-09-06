@@ -56,6 +56,9 @@ class Common:
         self.wait_until_element_is_visible(locator_type, locator).send_keys(text)
 
     def switch_to_new_window(self, existing_handles):
+        self.wait.until(
+            lambda driver: len(self.driver.window_handles) > len(existing_handles)
+        )
         new_window = set(self.driver.window_handles) - set(existing_handles)
         if new_window:
             self.driver.switch_to.window(new_window.pop())

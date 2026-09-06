@@ -1,3 +1,8 @@
-{
-  "base_url": "https://rahulshettyacademy.com/seleniumPractise/#/"
-}
+[
+  {
+    "urls": {
+      "v1": "https://rahulshettyacademy.com/seleniumPractise/#/",
+      "v2": "https://rahulshettyacademy.com/AutomationPractice/"
+    }
+  }
+]
