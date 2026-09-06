@@ -4,8 +4,6 @@ from pages.common import Common
 
 from selenium.webdriver.common.by import By
 
-from utilities.Dict2Class import dict2class
-
 class CartPage(Common):
 
     def click_cart(self):

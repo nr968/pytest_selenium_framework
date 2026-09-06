@@ -1,11 +1,9 @@
 from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver.common.by import By
 
-from conftest import driver
 from pages.common import Common
 
 from locators.deals_page import LOCATORS
-
-from selenium.webdriver.common.by import By
 
 class DealsPage(Common):
 
