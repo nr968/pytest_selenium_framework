@@ -74,15 +74,17 @@ class Common:
     def read_table(self, table_xpath: str, header_xpath: str, row_xpath: str):
         self.wait_until_element_is_visible(By.XPATH, table_xpath)
         table_headers = self.find_elements(By.XPATH, header_xpath)
-        headers: list[str] = []
-        for header in table_headers:
-            headers.append(header.text)
+        headers: list[str] = [header.text for header in table_headers]
         table_rows = self.find_elements(By.XPATH, row_xpath)
         table_data = []
-        for _ in table_rows:
-            row_datas = self.find_elements(By.XPATH, f"{row_xpath}/td")
+        for row in table_rows:
+            # Find td elements within this row element
+            row_datas = row.find_elements(By.TAG_NAME, "td")
+            if not row_datas:
+                # Fallback to relative XPath if tag lookup fails
+                row_datas = row.find_elements(By.XPATH, "./td")
             dict_map = {}
-            for header, datas in zip(headers,row_datas):
-                dict_map[header] = datas.text
+            for idx, header in enumerate(headers):
+                dict_map[header] = row_datas[idx].text if idx < len(row_datas) else ""
             table_data.append(dict2class(dict_map))
         return table_data
