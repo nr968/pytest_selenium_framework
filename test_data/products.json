@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Brocolli",
+        "category": "Vegetable",
+        "quantity": 1
+    },
+    {
+        "name": "Carrot",
+        "category": "Vegetable",
+        "quantity": 2
+    },
+    {
+        "name": "Tomato",
+        "category": "Vegetable",
+        "quantity": 3
+    }
+]

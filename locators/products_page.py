@@ -1,4 +1,6 @@
-locators = {
+from utilities.Dict2Class import dict2class
+
+locators_dict = {
     'input': {
         'search_box': '//input[@class="search-keyword" and @type="search"]',
     },
@@ -15,3 +17,5 @@ locators = {
         'product_card': '//div[@class="product"]',
     }
 }
+
+LOCATORS = dict2class(locators_dict)

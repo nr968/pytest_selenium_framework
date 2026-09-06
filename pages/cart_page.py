@@ -19,20 +19,7 @@ class CartPage(Common):
         self.wait_until_element_is_visible(By.XPATH, LOCATORS.element.checkout_table)
 
     def get_products_details(self) -> list[object]:
-        checkout_product_table_headers = self.find_elements(By.XPATH, LOCATORS.element.checkout_table_headers)
-        headers = []
-        for header in checkout_product_table_headers[1:]:
-            headers.append(header.text)
-
-        products = []
-        checkout_product_table_rows = self.find_elements(By.XPATH, LOCATORS.element.checkout_table_rows)
-        for _ in checkout_product_table_rows:
-            product_details = self.find_elements(By.XPATH, f"{LOCATORS.element.checkout_table_rows}/td")[1:]
-            if len(headers) == len(product_details):
-                map_dict = {}
-                for header, product_detail in zip(headers, product_details):
-                    map_dict[header] = product_detail.text
-                products.append(dict2class(map_dict))
-            else:
-                raise ValueError(f'Header and row length does not match')
-        return products
+        checkout_table = LOCATORS.element.checkout_table
+        checkout_product_table_headers = LOCATORS.element.checkout_table_headers
+        checkout_product_table_rows = LOCATORS.element.checkout_table_rows
+        return self.read_table(checkout_table, checkout_product_table_headers, checkout_product_table_rows)

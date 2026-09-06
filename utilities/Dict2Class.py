@@ -11,5 +11,5 @@ def dict2class(d):
 
     obj = C()
     for key, value in d.items():
-        setattr(obj, key.lower().replace(" ","_"), dict2class(value))
+        setattr(obj, key.lower().replace(" ","_").replace("/","_"), dict2class(value))
     return obj
