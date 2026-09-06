@@ -14,7 +14,9 @@ products = load_test_data("deal_products.json")
 def test_search_product_and_verify_discount_price(driver: WebDriver, product:dict):
     product_name = product["name"]
     deals_page = DealsPage(driver)
+    existing_windows = driver.window_handles
     deals_page.click_deals_link()
+    deals_page.switch_to_new_window(existing_windows)
     deals_page.search_discount_product(product_name)
     discount_details = deals_page.get_discount_details()
     for discount_detail in discount_details:

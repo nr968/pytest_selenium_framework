@@ -55,9 +55,12 @@ class Common:
     def send_keys(self, locator_type: str, locator: str, text: str) -> None:
         self.wait_until_element_is_visible(locator_type, locator).send_keys(text)
 
-    def switch_to_new_window(self):
-        new_window = set(self.driver.window_handles) - set(self.driver.current_window_handle)
-        if new_window: self.driver.switch_to.window(new_window.pop())
+    def switch_to_new_window(self, existing_handles):
+        new_window = set(self.driver.window_handles) - set(existing_handles)
+        if new_window:
+            self.driver.switch_to.window(new_window.pop())
+        else:
+            raise ValueError("New tab not opened")
 
     def switch_to_window(self, window_handle: str):
         self.driver.switch_to.window(window_handle)

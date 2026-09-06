@@ -12,10 +12,8 @@ class DealsPage(Common):
 
     def click_deals_link(self):
         self.click_element(By.XPATH, LOCATORS.element.top_deals)
-        self.switch_to_new_window()
 
     def search_discount_product(self, product_name):
-        # self.click_element(By.XPATH, LOCATORS.input.search_field)
         self.send_keys(By.XPATH, LOCATORS.input.search_field, product_name)
 
     def get_discount_details(self):
