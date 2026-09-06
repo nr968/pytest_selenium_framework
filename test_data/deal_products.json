@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Wheat",
+        "discount_price": 28,
+        "price": 67
+    },
+    {
+        "name": "Orange",
+        "discount_price": 34,
+        "price": 44
+    },
+    {
+        "name": "Banana",
+        "discount_price": 77,
+        "price": 87
+    }
+]

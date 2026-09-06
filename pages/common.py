@@ -40,20 +40,30 @@ class Common:
 
     def click_element_with_retry(self, locator_type: str, locator: str):
         retry_count = 3
-        try:
-            self.click_element(locator_type, locator)
-        except StaleElementReferenceException:
-            while retry_count > 0:
+        for attempt in range(retry_count):
+            try:
+                self.click_element(locator_type, locator)
+            except StaleElementReferenceException:
+                if attempt == retry_count - 1:
+                    raise
                 self.wait_until_element_is_present(locator_type, locator)
                 self.wait_until_element_is_visible(locator_type, locator)
-                self.click_element(locator_type, locator)
-                retry_count -= 1
 
     def get_element_text(self, locator_type: str, locator: str) -> str:
         return self.wait_until_element_is_visible(locator_type, locator).text
 
     def send_keys(self, locator_type: str, locator: str, text: str) -> None:
         self.wait_until_element_is_visible(locator_type, locator).send_keys(text)
+
+    def switch_to_new_window(self):
+        new_window = set(self.driver.window_handles) - set(self.driver.current_window_handle)
+        if new_window: self.driver.switch_to.window(new_window.pop())
+
+    def switch_to_window(self, window_handle: str):
+        self.driver.switch_to.window(window_handle)
+
+    def close_current_window(self):
+        self.driver.close()
 
     def read_table(self, table_xpath: str, header_xpath: str, row_xpath: str):
         self.wait_until_element_is_visible(By.XPATH, table_xpath)

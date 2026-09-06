@@ -11,13 +11,8 @@ class DealsPage(Common):
         super().__init__(driver)
 
     def click_deals_link(self):
-        current_window = self.driver.current_window_handle
         self.click_element(By.XPATH, LOCATORS.element.top_deals)
-        windows = self.driver.window_handles
-        for window in windows:
-            if window != current_window:
-                self.driver.switch_to.window(window)
-                break
+        self.switch_to_new_window()
 
     def search_discount_product(self, product_name):
         # self.click_element(By.XPATH, LOCATORS.input.search_field)
