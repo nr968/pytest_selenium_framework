@@ -23,17 +23,19 @@ class Common:
             (locator_type, locator)
         ))
 
+    def wait_until_element_is_clickable(self, locator_type: str, locator: str, timeout=10):
+        return self.wait.until(expected_conditions.element_to_be_clickable(
+            (locator_type, locator)
+        ))
+
     def click_element(self, locator_type: str, locator: str) -> None:
-        self.wait_until_element_is_visible(locator_type, locator).click()
+        self.wait_until_element_is_clickable(locator_type, locator).click()
 
     def get_element_text(self, locator_type: str, locator: str) -> str:
         return self.wait_until_element_is_visible(locator_type, locator).text
 
     def send_keys(self, locator_type: str, locator: str, text: str) -> None:
         self.wait_until_element_is_visible(locator_type, locator).send_keys(text)
-
-    def switch_to_new_tab(self):
-        return self.driver.window_handles[-1]
 
     def read_table(self, table_xpath: str, header_xpath: str, row_xpath: str):
         self.wait_until_element_is_visible(By.XPATH, table_xpath)
