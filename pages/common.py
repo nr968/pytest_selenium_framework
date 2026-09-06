@@ -4,6 +4,8 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 
+from selenium.common.exceptions import StaleElementReferenceException
+
 from utilities.Dict2Class import dict2class
 
 class Common:
@@ -23,6 +25,11 @@ class Common:
             (locator_type, locator)
         ))
 
+    def wait_until_element_is_present(self, locator_type: str, locator: str):
+        return self.wait.until(expected_conditions.presence_of_element_located(
+            (locator_type, locator)
+        ))
+
     def wait_until_element_is_clickable(self, locator_type: str, locator: str, timeout=10):
         return self.wait.until(expected_conditions.element_to_be_clickable(
             (locator_type, locator)
@@ -30,6 +37,17 @@ class Common:
 
     def click_element(self, locator_type: str, locator: str) -> None:
         self.wait_until_element_is_clickable(locator_type, locator).click()
+
+    def click_element_with_retry(self, locator_type: str, locator: str):
+        retry_count = 3
+        try:
+            self.click_element(locator_type, locator)
+        except StaleElementReferenceException:
+            while retry_count > 0:
+                self.wait_until_element_is_present(locator_type, locator)
+                self.wait_until_element_is_visible(locator_type, locator)
+                self.click_element(locator_type, locator)
+                retry_count -= 1
 
     def get_element_text(self, locator_type: str, locator: str) -> str:
         return self.wait_until_element_is_visible(locator_type, locator).text
