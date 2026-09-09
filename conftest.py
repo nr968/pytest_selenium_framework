@@ -1,3 +1,6 @@
+from email.policy import default
+
+from robot.variables import store
 from selenium import webdriver
 
 from utilities import config_reader
@@ -10,6 +13,12 @@ def pytest_addoption(parser):
         action="store",
         default="v2",
         help="URL version"
+    )
+    parser.addoption(
+        "--api",
+        action="store",
+        default="https://api.eventhub.rahulshettyacademy.com/api",
+        help="base url for api"
     )
 
 @pytest.fixture()
@@ -25,9 +34,11 @@ def base_url(request):
     return urls[url_version]
 
 @pytest.fixture
-def driver(base_url):
-    config = config_reader.get_config()
+def api_url(request):
+    return request.config.getoption("--api")
 
+@pytest.fixture
+def driver(base_url):
     driver = webdriver.Chrome()
     driver.maximize_window()
     driver.get(base_url)
