@@ -35,3 +35,18 @@ def test_valid_user_login(api_url):
     assert "id" in response_data["user"]
     assert response_data["user"]["id"] != ""
     assert isinstance(response_data["user"]["id"], int)
+
+def test_valid_user_token(api_url):
+    login_user_response = api_handler.login_user(api_url, "nk80002@gmail.com", "Password123")
+    login_response = login_user_response.json()
+    assert login_user_response.status_code == 200
+    assert "token" in login_response
+    token = login_response["token"]
+
+    user_details_response= api_handler.get_user_identity_from_token(api_url, token)
+    assert user_details_response.status_code == 200
+    user_details = user_details_response.json()
+    assert "user" in user_details
+    assert "userId" in user_details["user"]
+    assert user_details["user"]["userId"] != ""
+    assert user_details["user"]["email"] == "nk80002@gmail.com"

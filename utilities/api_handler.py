@@ -15,3 +15,9 @@ def login_user(api_url, email, password):
     }
 
     return requests.post(url=f"{api_url}/auth/login", json=payload)
+
+def get_user_identity_from_token(api_url, token):
+    headers = {
+        "Authorization": f"Bearer {token}"
+    }
+    return requests.get(url=f"{api_url}/auth/me", headers=headers)
